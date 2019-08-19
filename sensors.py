@@ -43,30 +43,13 @@ class infraredSensor(Sensor):
 
     # from left to right
     @staticmethod
-    def getSensor1():
-        sensorInput = gpiozero.InputDevice(generalSettings.infraredSensorPins[0])
-        return sensorInput.is_active
-    
-    @staticmethod
-    def getSensor2():
-        sensorInput = gpiozero.InputDevice(generalSettings.infraredSensorPins[1])
-        return sensorInput.is_active
-        
-    @staticmethod
-    def getSensor3():
-        sensorInput = gpiozero.InputDevice(generalSettings.infraredSensorPins[2])
-        return sensorInput.is_active
-
-    @staticmethod
-    def getSensor4():
-        sensorInput = gpiozero.InputDevice(generalSettings.infraredSensorPins[3])
-        return sensorInput.is_active
-
-    @staticmethod
-    def getSensor5():
-        sensorInput = gpiozero.InputDevice(generalSettings.infraredSensorPins[4])
-        return sensorInput.is_active
+    def getSensor(SensorNumber):
+        sensorInput =  GPIO.setup(generalSettings.infraredSensorPins[SensorNumber],GPIO.IN)
+        isActive= True
+        if GPIO.input(generalSettings.infraredSensorPins[SensorNumber]) == 1:
+            isActive == False
+        return isActive
 
     @staticmethod
     def getAllSensors():
-        return (infraredSensor.getSensor1(), infraredSensor.getSensor2(), infraredSensor.getSensor3(), infraredSensor.getSensor4(), infraredSensor.getSensor5())
+        return (infraredSensor.getSensor(0), infraredSensor.getSensor(1), infraredSensor.getSensor(2), infraredSensor.getSensor(3), infraredSensor.getSensor(4))
