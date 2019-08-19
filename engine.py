@@ -1,4 +1,5 @@
 import RPi.GPIO as GPIO
+import time
 
 class robotEngines():
     def __init__(self, motor1pin1, motor1pin2, motor2pin1, motor2pin2, PWMpin1, PWMpin2):
@@ -90,3 +91,14 @@ class robotEngines():
 
         GPIO.output(motor2pin1, 0)
         GPIO.output(motor2pin2, 0)
+
+    def partialSpeedY(self, degreeL, degreeR):
+        self.PWMEngines[0].value = degreeL
+        self.PWMEngines[1].value = degreeR
+
+    def MoveForwardWithParameters(SpeedL, SpeedR, sleeptime):
+        partialSpeedY(degreeL, degreeR)
+        goForward()
+        time.sleep(sleeptime)
+        partialSpeedY(1,1)
+
