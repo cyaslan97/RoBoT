@@ -148,20 +148,18 @@ def main():
 
     engines = engine.robotEngines(generalSettings.motor1pins[0], generalSettings.motor1pins[1], generalSettings.motor2pins[0], generalSettings.motor2pins[1], generalSettings.PWMpins[0], generalSettings.PWMpins[1])
 
-    # autoPilotThread = threading.Thread(target=autoPilot, args=(engines,))
-    # autoPilotThread.start()
+    autoPilotThread = threading.Thread(target=autoPilot, args=(engines,))
+    autoPilotThread.start()
 
-    # distanceSensorThread = threading.Thread(target=distanceSensorFunc, args=(engines,))
-    # distanceSensorThread.start()
+    distanceSensorThread = threading.Thread(target=distanceSensorFunc, args=(engines,))
+    distanceSensorThread.start()
 
-    # controlPanelThread = threading.Thread(target=engineFunc, args=(engines,))
-    # controlPanelThread.start()
+    controlPanelThread = threading.Thread(target=engineFunc, args=(engines,))
+    controlPanelThread.start()
 
-    # autoPilotThread.join()
-    # distanceSensorThread.join()
-    # controlPanelThread.join()
-
-    engineFunc(engines)
+    autoPilotThread.join()
+    distanceSensorThread.join()
+    controlPanelThread.join()
 
     
 if __name__ == "__main__":
