@@ -1,7 +1,9 @@
 #!/usr/bin/python
 from settings import generalSettings
-import gpiozero
+import RPi.GPIO as GPIO
 import time
+GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
 
 class Sensor():
     def __init__(self):
@@ -14,30 +16,26 @@ class distanceSensor(Sensor):
 
     @staticmethod
     def getDistance():
-        try:
-            PIN_TRIGGER = generalSettings.distanceSensorPin_TRIGGER
-            PIN_ECHO = generalSettings.distanceSensorPin_ECHO
+        PIN_TRIGGER = generalSettings.distanceSensorPin_TRIGGER
+        PIN_ECHO = generalSettings.distanceSensorPin_ECHO
+        GPIO.setup(PIN_TRIGGER,GPIO.OUT)
+        GPIO.setup(PIN_ECHO,GPIO.IN)
 
-            sensorOutput = gpiozero.OutputDevice(PIN_TRIGGER, active_high=True, initial_value=False)
-            sensorInput = gpiozero.InputDevice(PIN_ECHO)
+        GPIO.output(TRIG, True)
+        time.sleep(0.00001)
+        GPIO.output(TRIG, False)
 
-            sensorOutput.on()
+        while GPIO.input(ECHO)==0:
+            pulse_start = time.time()
 
-            time.sleep(0.00001)
+        while GPIO.input(ECHO)==1:
+            pulse_end = time.time()
 
-            sensorOutput.off()
+        pulse_duration = pulse_end - pulse_start
 
-            global pulse_start_time
-            global pulse_end_time
-            while not sensorInput.is_active:
-                pulse_start_time = time.time()
-            while sensorInput.is_active:
-                pulse_end_time = time.time()
-            pulse_duration = pulse_end_time - pulse_start_time
-            distance = round(pulse_duration * 17150, 2)
-            return distance
-        finally:
-            pass
+        distance = pulse_duration * 17150
+        distance = round(distance, 2)
+
 
 class infraredSensor(Sensor):
     def __init__(self):
