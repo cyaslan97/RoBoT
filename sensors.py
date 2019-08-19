@@ -8,7 +8,6 @@ GPIO.setwarnings(False)
 class Sensor():
     def __init__(self):
         pass
-    
 
 class distanceSensor(Sensor):
     def __init__(self):
@@ -21,14 +20,14 @@ class distanceSensor(Sensor):
         GPIO.setup(PIN_TRIGGER,GPIO.OUT)
         GPIO.setup(PIN_ECHO,GPIO.IN)
 
-        GPIO.output(TRIG, True)
+        GPIO.output(PIN_TRIGGER, True)
         time.sleep(0.00001)
-        GPIO.output(TRIG, False)
+        GPIO.output(PIN_TRIGGER, False)
 
-        while GPIO.input(ECHO)==0:
+        while GPIO.input(PIN_ECHO)==0:
             pulse_start = time.time()
 
-        while GPIO.input(ECHO)==1:
+        while GPIO.input(PIN_ECHO)==1:
             pulse_end = time.time()
 
         pulse_duration = pulse_end - pulse_start
@@ -46,8 +45,8 @@ class infraredSensor(Sensor):
     def getSensor(SensorNumber):
         sensorInput =  GPIO.setup(generalSettings.infraredSensorPins[SensorNumber],GPIO.IN)
         isActive= True
-        if GPIO.input(generalSettings.infraredSensorPins[SensorNumber]) == 1:
-            isActive == False
+        if GPIO.input(generalSettings.infraredSensorPins[SensorNumber]) == 0:
+            isActive = False
         return isActive
 
     @staticmethod

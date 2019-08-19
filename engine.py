@@ -56,41 +56,41 @@ class robotEngines():
 
     def turnLeft(self):
 
-        GPIO.output(motor1pin1, 0)
-        GPIO.output(motor1pin2, 1)
+        GPIO.output(self.motor1pin1, 0)
+        GPIO.output(self.motor1pin2, 1)
 
-        GPIO.output(motor2pin1, 1)
-        GPIO.output(motor2pin2, 0)
+        GPIO.output(self.motor2pin1, 1)
+        GPIO.output(self.motor2pin2, 0)
 
     def turnRight(self):
-        GPIO.output(motor1pin1, 1)
-        GPIO.output(motor1pin2, 0)
+        GPIO.output(self.motor1pin1, 1)
+        GPIO.output(self.motor1pin2, 0)
 
-        GPIO.output(motor2pin1, 0)
-        GPIO.output(motor2pin2, 1)
+        GPIO.output(self.motor2pin1, 0)
+        GPIO.output(self.motor2pin2, 1)
         
     def turnLeftOneTier(self):
-        GPIO.output(motor1pin1, 1)
-        GPIO.output(motor1pin2, 0)
+        GPIO.output(self.motor1pin1, 1)
+        GPIO.output(self.motor1pin2, 0)
 
-        GPIO.output(motor2pin1, 0)
-        GPIO.output(motor2pin2, 0)
+        GPIO.output(self.motor2pin1, 0)
+        GPIO.output(self.motor2pin2, 0)
 
     def turnRightOneTier(self):
 
-        GPIO.output(motor1pin1, 0)
-        GPIO.output(motor1pin2, 0)
+        GPIO.output(self.motor1pin1, 0)
+        GPIO.output(self.motor1pin2, 0)
 
-        GPIO.output(motor2pin1, 1)
-        GPIO.output(motor2pin2, 0)
+        GPIO.output(self.motor2pin1, 1)
+        GPIO.output(self.motor2pin2, 0)
         
     def stop(self):
 
-        GPIO.output(motor1pin1, 0)
-        GPIO.output(motor1pin2, 0)
+        GPIO.output(self.motor1pin1, 0)
+        GPIO.output(self.motor1pin2, 0)
 
-        GPIO.output(motor2pin1, 0)
-        GPIO.output(motor2pin2, 0)
+        GPIO.output(self.motor2pin1, 0)
+        GPIO.output(self.motor2pin2, 0)
 
     def partialSpeedY(self, degreeL, degreeR):
         self.PWMEngines[0].value = degreeL

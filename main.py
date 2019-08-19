@@ -63,11 +63,11 @@ def autoPilotTurn(engines):
             time.sleep(0.02)
             sensorsStatus = sensors.infraredSensor.getAllSensors()
             print("#######")
-            print("sensor1: ", sensors.infraredSensor.getSensor1())
-            print("sensor2: ", sensors.infraredSensor.getSensor2())
-            print("sensor3: ", sensors.infraredSensor.getSensor3())
-            print("sensor4: ", sensors.infraredSensor.getSensor4())
-            print("sensor5: ", sensors.infraredSensor.getSensor5())
+            print("sensor1: ", sensors.infraredSensor.getSensor(0))
+            print("sensor2: ", sensors.infraredSensor.getSensor(1))
+            print("sensor3: ", sensors.infraredSensor.getSensor(2))
+            print("sensor4: ", sensors.infraredSensor.getSensor(3))
+            print("sensor5: ", sensors.infraredSensor.getSensor(4))
         engines.stop()
         autoPilot(engines)
     else:
@@ -81,11 +81,11 @@ def autoPilot(engines):
     lastDirection = 0
     while True:
         print("###### : ", counter)
-        print("sensor1: ", sensors.infraredSensor.getSensor1())
-        print("sensor2: ", sensors.infraredSensor.getSensor2())
-        print("sensor3: ", sensors.infraredSensor.getSensor3())
-        print("sensor4: ", sensors.infraredSensor.getSensor4())
-        print("sensor5: ", sensors.infraredSensor.getSensor5())
+        print("sensor1: ", sensors.infraredSensor.getSensor(0))
+        print("sensor2: ", sensors.infraredSensor.getSensor(1))
+        print("sensor3: ", sensors.infraredSensor.getSensor(2))
+        print("sensor4: ", sensors.infraredSensor.getSensor(3))
+        print("sensor5: ", sensors.infraredSensor.getSensor(4))
 
         if generalSettings.abortMotorsAndFunctionality:
             break
