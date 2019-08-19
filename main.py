@@ -34,7 +34,7 @@ def engineFunc(engines):
 def distanceSensorFunc(engines):
     while True:
         distance = sensors.distanceSensor.getDistance()
-
+        print(distance)
         if distance < 10:
             engines.stop()
         
