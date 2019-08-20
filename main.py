@@ -24,7 +24,6 @@ def engineFunc(engines):
             engines.stop()
         elif command == "a35":
             generalSettings.abortMotorsAndFunctionality = True
-
         if generalSettings.abortMotorsAndFunctionality:
             break
 
@@ -40,18 +39,28 @@ def distanceSensorFunc(engines):
         
         time.sleep(0.05)
 
-        if generalSettings.abortMotorsAndFunctionality:
-            break
-
-
+            
+def rfidSensorFunc():
+    text= sensors.rfidReader.readTag()
+    print text
+    
+        
 def autoPilotTurn(engines):
 
     sensorsStatus = sensors.infraredSensor.getAllSensors()
 
     # check if on T line
     if sensorsStatus == (False, False, False, False, False) or sensorsStatus == (False, False, False, False, True) or sensorsStatus == (True, False, False, False, False):
-        engines.turnRight()
-        time.sleep(0.2)
+        print("arrived on T line")
+        engines.stop()
+        if(sensors.rfidReader.readTag()== "0"):
+            engines.turnRightOneTier()
+            print("saga dondum")
+            time.sleep(0.3)
+        elif(sensors.rfidReader.readTag()== "1"):
+            engines.turnLeftOneTier()
+            print("sola dondum")
+            time.sleep(0.3)
         sensorsStatus = sensors.infraredSensor.getAllSensors()
         while (sensorsStatus != (True, True, False, True, True) and
         sensorsStatus != (True, True, True, False, True) and 
@@ -122,9 +131,9 @@ def autoPilot(engines):
         elif sensorsStatus == (True, True, True, False, False):
             engines.turnRight()
         elif sensorsStatus == (True, False, True, True, True):
-            engines.turnRightOneTier()
-        elif sensorsStatus == (True, True, True, False, True):
             engines.turnLeftOneTier()
+        elif sensorsStatus == (True, True, True, False, True):
+            engines.turnRightOneTier()
         # T line
         elif sensorsStatus == (False, False, False, False, False):
             autoPilotTurn(engines)
@@ -150,12 +159,18 @@ def main():
 
     autoPilotThread = threading.Thread(target=autoPilot, args=(engines,))
     autoPilotThread.start()
+    
+    print("autopilot initiated")
 
     distanceSensorThread = threading.Thread(target=distanceSensorFunc, args=(engines,))
     distanceSensorThread.start()
+    
+    print("distance initiated")
 
     controlPanelThread = threading.Thread(target=engineFunc, args=(engines,))
     controlPanelThread.start()
+    
+    print("cp initiated")
 
     autoPilotThread.join()
     distanceSensorThread.join()

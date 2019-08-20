@@ -1,7 +1,10 @@
 #!/usr/bin/python
 from settings import generalSettings
 import RPi.GPIO as GPIO
+from mfrc522 import SimpleMFRC522
 import time
+
+
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
@@ -53,3 +56,16 @@ class infraredSensor(Sensor):
     @staticmethod
     def getAllSensors():
         return (infraredSensor.getSensor(0), infraredSensor.getSensor(1), infraredSensor.getSensor(2), infraredSensor.getSensor(3), infraredSensor.getSensor(4))
+
+class rfidReader(Sensor):
+
+    def __init__(self):
+        super.__init__()
+        
+    @staticmethod
+    def readTag():
+        reader = SimpleMFRC522()
+        id, text = reader.read()
+        txt = text.strip()
+        print(text)
+        return txt

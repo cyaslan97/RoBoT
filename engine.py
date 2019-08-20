@@ -70,18 +70,18 @@ class robotEngines():
         GPIO.output(self.motor2pin2, 1)
         
     def turnLeftOneTier(self):
-        GPIO.output(self.motor1pin1, 1)
-        GPIO.output(self.motor1pin2, 0)
-
-        GPIO.output(self.motor2pin1, 0)
-        GPIO.output(self.motor2pin2, 0)
-
-    def turnRightOneTier(self):
-
         GPIO.output(self.motor1pin1, 0)
         GPIO.output(self.motor1pin2, 0)
 
         GPIO.output(self.motor2pin1, 1)
+        GPIO.output(self.motor2pin2, 0)
+
+    def turnRightOneTier(self):
+
+        GPIO.output(self.motor1pin1, 1)
+        GPIO.output(self.motor1pin2, 0)
+
+        GPIO.output(self.motor2pin1, 0)
         GPIO.output(self.motor2pin2, 0)
         
     def stop(self):
@@ -93,12 +93,12 @@ class robotEngines():
         GPIO.output(self.motor2pin2, 0)
 
     def partialSpeedY(self, degreeL, degreeR):
-        self.PWMEngine1.ChangeDutyCycle(degreeL)
-        self.PWMEngine2.ChangeDutyCycle(degreeR)
+        self.PWMEngines[0].value = degreeL
+        self.PWMEngines[1].value = degreeR
 
     def MoveForwardWithParameters(SpeedL, SpeedR, sleeptime):
         partialSpeedY(degreeL, degreeR)
         goForward()
         time.sleep(sleeptime)
-        partialSpeedY(100,100)
+        partialSpeedY(1,1)
 
